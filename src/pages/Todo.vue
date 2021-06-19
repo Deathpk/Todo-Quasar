@@ -1,8 +1,27 @@
 <template>
   <q-page class="bg-grey-3 column">
     <div class="row q-pa-sm bg-primary">
-      Add task
+      <q-input
+        v-model="newTask"
+        class="col"
+        square
+        placeholder="Add a new task!"
+        bg-color="white"
+        dense
+        @keyup.enter="addNewTask"
+      >
+        <template v-slot:append>
+          <q-btn
+            @click="addNewTask()"
+            round
+            dense
+            flat
+            icon="add"
+          />
+        </template>
+      </q-input>
     </div>
+
     <q-list
       class="bg-white"
       separator
@@ -36,8 +55,17 @@
           />
         </q-item-section>
       </q-item>
-
     </q-list>
+    <div v-if="!tasks.length" class="no-tasks absolute-center">
+      <q-icon
+      name="check"
+      size="100px"
+      color="primary"
+      />
+      <div class="text-h5 text-primary text-center">
+          No tasks
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -45,23 +73,18 @@
 export default {
  data(){
    return {
-     tasks: [
-       {
-         title: 'Estudar Laravel',
-         done: false
-       },
-       {
-         title: 'Estudar Vue JS',
-         done: false
-       },
-       {
-         title: 'Estudar Tests',
-         done: false
-       }
-     ]
+     newTask:'',
+     tasks: []
    }
  },
   methods: {
+   addNewTask(){
+     const isNotEmpty = this.newTask !== '' && this.newTask !== ' ';
+     if( isNotEmpty ){
+       this.tasks.push({ title:this.newTask, done:false });
+       this.newTask = '';
+     }
+   },
     deleteTask(index){
       this.$q.dialog({
         title: 'Confirm',
@@ -83,5 +106,8 @@ export default {
       text-decoration: line-through;
       color:#bbb;
     }
+  }
+  .no-tasks{
+    opacity: 0.5;
   }
 </style>
