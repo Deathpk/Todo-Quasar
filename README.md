@@ -1,6 +1,8 @@
 # Quasar Todo (quasar-todo)
 
-A Quasar Framework app
+A simple Quasar Framework app , with only study purposes.
+Quasar Is a beautiful vue js framework that utilizes material design,
+and provides desktop and mobile versions of the web app out of the box using Electron.
 
 ## Install the dependencies
 ```bash
